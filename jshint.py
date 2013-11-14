@@ -16,3 +16,8 @@ class JSHint(Linter):
     cmd = ('jshint', '--verbose', '-')
     regex = r'^.+?: line (?P<line>\d+), col (?P<col>\d+), (?P<error>.+) \((?P<type>[EW]\d+)\)$'
     comment_re = r'\s*/[/*]'
+
+
+class EmbeddedJSHint(JSHint):
+    language = 'html'
+    selector = 'source.js.embedded.html'
