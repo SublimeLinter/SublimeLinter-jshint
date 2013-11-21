@@ -1,0 +1,7 @@
+{
+    "linters": {
+        "pep8": {
+            "max-line-length": 120
+        }
+    }
+}
