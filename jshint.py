@@ -13,7 +13,7 @@ from SublimeLinter.lint import Linter
 
 class JSHint(Linter):
     language = 'javascript'
-    cmd = ('jshint', '--verbose', '-')
+    cmd = 'jshint --verbose -'
     regex = r'^.+?: line (?P<line>\d+), col (?P<col>\d+), (?P<message>.+) \((?:(?P<error>E)|(?P<warning>W))\d+\)$'
 
 
