@@ -12,11 +12,9 @@ from SublimeLinter.lint import Linter
 
 
 class JSHint(Linter):
-    language = 'javascript'
+    language = ('javascript', 'html')
     cmd = 'jshint --verbose -'
     regex = r'^.+?: line (?P<line>\d+), col (?P<col>\d+), (?P<message>.+) \((?:(?P<error>E)|(?P<warning>W))\d+\)$'
-
-
-class EmbeddedJSHint(JSHint):
-    language = 'html'
-    selector = 'source.js.embedded.html'
+    selectors = {
+        'html': 'source.js.embedded.html'
+    }
