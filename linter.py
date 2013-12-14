@@ -18,7 +18,7 @@ class JSHint(Linter):
 
     """Provides an interface to the jshint executable."""
 
-    language = ('javascript', 'html')
+    syntax = ('javascript', 'html')
     cmd = 'jshint --verbose -'
     regex = r'^.+?: line (?P<line>\d+), col (?P<col>\d+), (?P<message>.+) \((?:(?P<error>E)|(?P<warning>W))\d+\)$'
     selectors = {
