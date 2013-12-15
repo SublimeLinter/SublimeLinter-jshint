@@ -1,0 +1,6 @@
+SublimeLinter-jshint
+-------------------------------
+
+This linter plugin for SublimeLinter provides an interface to jshint.
+
+For more information, please see https://github.com/SublimeLinter/SublimeLinter-jshint.

@@ -5,7 +5,6 @@
 # Written by Aparajita Fishman
 # Copyright (c) 2013 Aparajita Fishman
 #
-# Project: https://github.com/SublimeLinter/SublimeLinter-contrib-jshint
 # License: MIT
 #
 
