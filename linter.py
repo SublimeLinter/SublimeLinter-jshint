@@ -18,7 +18,7 @@ class JSHint(Linter):
     """Provides an interface to the jshint executable."""
 
     syntax = ('javascript', 'html')
-    cmd = 'jshint --verbose -'
+    cmd = 'jshint --verbose * -'
     regex = r'^.+?: line (?P<line>\d+), col (?P<col>\d+), (?P<message>.+) \((?:(?P<error>E)|(?P<warning>W))\d+\)$'
     selectors = {
         'html': 'source.js.embedded.html'
