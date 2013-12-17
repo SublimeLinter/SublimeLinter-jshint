@@ -29,7 +29,7 @@ To install via Package Control, do the following:
 ## Settings
 For general information on how SublimeLinter works with settings, please see [Settings](https://github.com/SublimeLinter/SublimeLinter.github.io/wiki/Settings). For information on generic linter settings, please see [Linter Settings](https://github.com/SublimeLinter/SublimeLinter.github.io/wiki/Linter-Settings).
 
-You can configure `jshint` options in the usual way. For more information, see the [jshint docs](http://www.jshint.com/docs/).
+You can configure `jshint` options in the way you would from the command line, with `.jshintrc` files. For more information, see the [jshint docs](http://www.jshint.com/docs/).
 
 ## Contributing
 If you would like to contribute enhancements or fixes, please do the following:
