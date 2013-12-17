@@ -31,6 +31,8 @@ For general information on how SublimeLinter works with settings, please see [Se
 
 You can configure `jshint` options in the way you would from the command line, with `.jshintrc` files. For more information, see the [jshint docs](http://www.jshint.com/docs/).
 
+**Note:** The linter plugin does this by searching for a `.jshintrc` file itself and setting the `--config` option if it finds one, so you cannot use that option in the linter’s `"args"` setting.
+
 ## Contributing
 If you would like to contribute enhancements or fixes, please do the following:
 
