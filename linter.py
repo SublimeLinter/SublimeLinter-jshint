@@ -34,7 +34,7 @@ class JSHint(Linter):
 
         """
 
-        command = ['jshint', '--verbose']
+        command = [self.executable_path, '--verbose']
         jshintrc = util.find_file(os.path.dirname(self.filename), '.jshintrc')
 
         if jshintrc:
