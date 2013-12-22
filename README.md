@@ -16,7 +16,7 @@ Before installing this plugin, you must ensure that `jshint` is installed on you
    npm install -g jshint
    ```
 
-1. If you are using `nvm` and `zsh`, ensure that the line to load `nvm` is in `.zprofile` and not `.zshrc`.
+1. If you are using `nvm` and `zsh`, ensure that the line to load `nvm` is in `.zshenv` and not `.zshrc`.
 
 Once jshint is installed, you can proceed to install the SublimeLinter-jshint plugin if it is not yet installed.
 
