@@ -9,12 +9,14 @@ SublimeLinter 3 must be installed in order to use this plugin. If SublimeLinter 
 ### Linter installation
 Before installing this plugin, you must ensure that `jshint` is installed on your system. To install `jshint`, do the following:
 
-1. Install [Node.js](http://nodejs.org).
+1. Install [Node.js](http://nodejs.org) (and [npm](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager) on Linux).
 
 1. Install `jshint` by typing the following in a terminal:
    ```
    npm install -g jshint
    ```
+
+1. If you are using `nvm` and `zsh`, ensure that the line to load `nvm` is in `.zprofile` and not `.zshrc`.
 
 Once jshint is installed, you can proceed to install the SublimeLinter-jshint plugin if it is not yet installed.
 
