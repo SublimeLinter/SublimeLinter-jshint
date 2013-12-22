@@ -24,7 +24,6 @@ class JSHint(Linter):
         r'^.+?: line (?P<line>\d+), col (?P<col>\d+), '
         r'(?P<message>.+) \((?:(?P<error>E)|(?P<warning>W))\d+\)'
     )
-    error_stream = util.STREAM_BOTH
     selectors = {
         'html': 'source.js.embedded.html'
     }
