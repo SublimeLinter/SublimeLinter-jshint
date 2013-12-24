@@ -21,8 +21,9 @@ class JSHint(Linter):
     syntax = ('javascript', 'html')
     executable = 'jshint'
     regex = (
-        r'^.+?: line (?P<line>\d+), col (?P<col>\d+), '
-        r'(?P<message>.+) \((?:(?P<error>E)|(?P<warning>W))\d+\)'
+        r'^(?:(?P<fail>ERROR: .+)|'
+        r'.+?: line (?P<line>\d+), col (?P<col>\d+), '
+        r'(?P<message>.+) \((?:(?P<error>E)|(?P<warning>W))\d+\))'
     )
     selectors = {
         'html': 'source.js.embedded.html'
@@ -37,10 +38,33 @@ class JSHint(Linter):
 
         """
 
-        command = [self.executable_path, '--verbose']
-        jshintrc = util.find_file(os.path.dirname(self.filename), '.jshintrc')
+        command = [self.executable_path, '--verbose', '*']
 
-        if jshintrc:
-            command += ['--config', jshintrc]
+        # Allow the user to specify a config file in args
+        args = self.get_user_args()
 
-        return command + ['*', '-']
+        if '--config' not in args:
+            jshintrc = util.find_file(os.path.dirname(self.filename), '.jshintrc')
+
+            if jshintrc:
+                command += ['--config', jshintrc]
+
+        return command + ['-']
+
+    def split_match(self, match):
+        """
+        Return the components of the match.
+
+        We override this to catch linter error messages and place them
+        at the top of the file.
+
+        """
+
+        if match:
+            fail = match.group('fail')
+
+            if fail:
+                # match, line, col, error, warning, message, near
+                return match, 0, 0, True, False, fail, None
+
+        return super().split_match(match)
