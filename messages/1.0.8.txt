@@ -1,0 +1,17 @@
+SublimeLinter-jshint 1.0.8
+---------------------------
+
+- When specifying a config file with the "args" linter setting,
+  to be safe it is best to use an array:
+
+  "args": ["--config", "/path/to/file"]
+
+  On Windows, be sure to double the backslashes:
+
+  "args": ["--config", "C:\\path\\to\\file"]
+
+- If jshint generates an error, SublimeLinter *tries*
+  to retrieve the error, but unfortunately on Windows
+  it is not working reliably. It seems to be a bug in python.
+  So if you specify a custom config file and the path
+  is invalid, jshint will just silently fail.
