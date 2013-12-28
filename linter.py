@@ -10,8 +10,7 @@
 
 """This module exports the JSHint plugin linter class."""
 
-import os
-from SublimeLinter.lint import Linter, util
+from SublimeLinter.lint import Linter
 
 
 class JSHint(Linter):
@@ -19,7 +18,7 @@ class JSHint(Linter):
     """Provides an interface to the jshint executable."""
 
     syntax = ('javascript', 'html')
-    executable = 'jshint'
+    cmd = 'jshint --verbose * -'
     regex = (
         r'^(?:(?P<fail>ERROR: .+)|'
         r'.+?: line (?P<line>\d+), col (?P<col>\d+), '
@@ -28,28 +27,7 @@ class JSHint(Linter):
     selectors = {
         'html': 'source.js.embedded.html'
     }
-
-    def cmd(self):
-        """
-        Return a string with the command line to execute.
-
-        We define this method because we want to use the .jshintrc files,
-        and we can't rely on jshint to find them, because we are using stdin.
-
-        """
-
-        command = [self.executable_path, '--verbose', '*']
-
-        # Allow the user to specify a config file in args
-        args = self.get_user_args()
-
-        if '--config' not in args:
-            jshintrc = util.find_file(os.path.dirname(self.filename), '.jshintrc')
-
-            if jshintrc:
-                command += ['--config', jshintrc]
-
-        return command + ['-']
+    config_file = ('--config', '.jshintrc')
 
     def split_match(self, match):
         """
