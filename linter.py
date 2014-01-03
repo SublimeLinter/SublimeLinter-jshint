@@ -27,7 +27,7 @@ class JSHint(Linter):
     selectors = {
         'html': 'source.js.embedded.html'
     }
-    config_file = ('--config', '.jshintrc')
+    config_file = ('--config', '.jshintrc', '~')
 
     def split_match(self, match):
         """
