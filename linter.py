@@ -28,6 +28,7 @@ class JSHint(Linter):
         'html': 'source.js.embedded.html'
     }
     config_file = ('--config', '.jshintrc', '~')
+    word_re = ""
 
     def split_match(self, match):
         """
