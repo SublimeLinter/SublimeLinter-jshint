@@ -76,8 +76,13 @@ class JSHint(Linter):
             # if we have a operator == or != manually change the column,
             # near won't work here as we might have multiple ==/!= on a line
             elif code == '116':
-                self.word_re = re.compile(match.group('actual'))
-                col -= len(match.group('actual'))
+                actual = match.group('actual')
+                # match the actual result
+                self.word_re = re.compile(actual)
+
+                # if a comparison then also change the column
+                if actual == '!=' or actual == '==':
+                    col -= len(actual)
             # now jshint place the column in front,
             # and as such we need to change our word matching regex,
             # and keep the column info
