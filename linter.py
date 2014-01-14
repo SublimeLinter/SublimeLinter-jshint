@@ -28,6 +28,10 @@ class JSHint(Linter):
         r'\'(?P<undef>.+)\'.+(?=.+W098)'
         # duplicate key
         r'|.+\'(?P<duplicate>.+)\'.+(?=.+W075)'
+        # camel case
+        r'|.+\'(?P<no_camel>.+)\'.+(?=.+W106)'
+        # double declaration
+        r'|(.+)?\'(?P<double_declare>.+)\'.+(?=.+W004)'
         # non strict operators
         r'|.+\'(?P<actual>.+)\'\.(?=.+W116)'
         # unexpected use of ++ etc
@@ -73,6 +77,14 @@ class JSHint(Linter):
             # mark the duplicate key
             elif code == '075':
                 col -= len(match.group('duplicate'))
+            # mark the no camel case key, cannot use safer method of
+            # subtracting the length of the match, as the original col info
+            # from jshint is always column 0, using near instead
+            elif code == '106':
+                near = match.group('no_camel')
+                col = None
+            elif code == '004':
+                col -= len(match.group('double_declare'))
             # if we have a operator == or != manually change the column,
             # near won't work here as we might have multiple ==/!= on a line
             elif code == '116':
