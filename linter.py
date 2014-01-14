@@ -67,7 +67,7 @@ class JSHint(Linter):
                 return match, 0, 0, True, False, fail, None
             # mark the undefined word
             elif code == '098':
-                 col -= len(match.group('undef'))
+                col -= len(match.group('undef'))
             # if we have a operator == or != manually change the column,
             # near won't work here as we might have multiple ==/!= on a line
             elif code == '116':
