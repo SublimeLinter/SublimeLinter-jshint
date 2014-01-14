@@ -77,7 +77,7 @@ class JSHint(Linter):
             # and as such we need to change our word matching regex,
             # and keep the column info
             elif code == '016':
-                self.word_re = re.compile('[+-]+')
+                self.word_re = re.compile('\+\+|--')
 
             return match, line, col, error, warning, message, near
 
