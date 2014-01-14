@@ -81,4 +81,4 @@ class JSHint(Linter):
 
             return match, line, col, error, warning, message, near
 
-        return super().split_match(match)
+        return match, None, None, None, None, '', None
