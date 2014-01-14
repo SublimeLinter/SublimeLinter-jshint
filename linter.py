@@ -67,12 +67,12 @@ class JSHint(Linter):
                 return match, 0, 0, True, False, fail, None
             # mark the undefined word
             elif code == '098':
-                col = col - len(match.group('undef'))
+                 col -= len(match.group('undef'))
             # if we have a operator == or != manually change the column,
             # near won't work here as we might have multiple ==/!= on a line
             elif code == '116':
                 self.word_re = re.compile(match.group('actual'))
-                col = col - len(match.group('actual'))
+                col -= len(match.group('actual'))
             # now jshint place the column in front,
             # and as such we need to change our word matching regex,
             # and keep the column info
