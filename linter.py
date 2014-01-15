@@ -34,7 +34,7 @@ class JSHint(Linter):
         r'|(.+)?\'(?P<late_def>.+)\'.+(?=.+W003)'
         # double declaration
         r'|(.+)?\'(?P<double_declare>.+)\'.+(?=.+W004)'
-        # non strict operators
+        # unexpected use, typically use of non strict operators
         r'|.+\'(?P<actual>.+)\'\.(?=.+W116)'
         # unexpected use of ++ etc
         r'|.+\'(?P<unexpected>.+)\'\.(?=.+W016)'
@@ -73,30 +73,38 @@ class JSHint(Linter):
             if fail:
                 # match, line, col, error, warning, message, near
                 return match, 0, 0, True, False, fail, None
+
             # highlight variables used before defined
             elif code == '003':
                 col -= len(match.group('late_def'))
+
             # highlight double declared variables
             elif code == '004':
                 col -= len(match.group('double_declare'))
+
             # now jshint place the column in front,
             # and as such we need to change our word matching regex,
             # and keep the column info
             elif code == '016':
-                self.word_re = re.compile('\+\+|--')
+                self.word_re = re.compile(r'\+\+|--')
+
             # mark the duplicate key
             elif code == '075':
                 col -= len(match.group('duplicate'))
+
             # mark the undefined word
             elif code == '098':
                 col -= len(match.group('undef'))
+
             # mark the no camel case key, cannot use safer method of
             # subtracting the length of the match, as the original col info
             # from jshint is always column 0, using near instead
             elif code == '106':
                 near = match.group('no_camel')
                 col = None
+
             # if we have a operator == or != manually change the column,
+            # this also handles the warning when curly brackets are required
             # near won't work here as we might have multiple ==/!= on a line
             elif code == '116':
                 actual = match.group('actual')
