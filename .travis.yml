@@ -4,5 +4,8 @@ python:
 # command to install dependencies
 install:
   - pip install flake8
+  - pip install pep257
 # command to run tests
-script: flake8 *.py
+script:
+  - flake8 *.py
+  - pep257 *.py
