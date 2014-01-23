@@ -18,8 +18,11 @@ class JSHint(Linter):
 
     """Provides an interface to the jshint executable."""
 
-    syntax = ('javascript', 'html')
-    cmd = 'jshint --verbose * -'
+    syntax = ('javascript', 'html', 'html (django)')
+    executable = 'jshint'
+    version_args = '--version'
+    version_re = r'\bv(?P<version>\d+\.\d+\.\d+)'
+    version_requirement = '>= 2.4.0'
     regex = (
         r'^(?:(?P<fail>ERROR: .+)|'
         r'.+?: line (?P<line>\d+), col (?P<col>\d+), '
@@ -43,10 +46,17 @@ class JSHint(Linter):
         # capture error, warning and code
         r' \((?:(?P<error>E)|(?P<warning>W))(?P<code>\d+)\))'
     )
-    selectors = {
-        'html': 'source.js.embedded.html'
-    }
     config_file = ('--config', '.jshintrc', '~')
+
+    def cmd(self):
+        """Return the command line to execute."""
+
+        command = ['jshint', '--verbose']
+
+        if self.syntax.startswith('html'):
+            command.append('--extract=always')
+
+        return command + ['*', '-']
 
     def split_match(self, match):
         """
