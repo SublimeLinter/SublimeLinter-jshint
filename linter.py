@@ -51,7 +51,7 @@ class JSHint(Linter):
     def cmd(self):
         """Return the command line to execute."""
 
-        command = ['jshint', '--verbose']
+        command = [self.executable_path, '--verbose']
 
         if self.syntax.startswith('html'):
             command.append('--extract=always')
