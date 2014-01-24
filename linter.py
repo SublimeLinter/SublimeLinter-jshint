@@ -18,7 +18,7 @@ class JSHint(Linter):
 
     """Provides an interface to the jshint executable."""
 
-    syntax = ('javascript', 'html', 'html (django)')
+    syntax = ('javascript', 'html')
     executable = 'jshint'
     version_args = '--version'
     version_re = r'\bv(?P<version>\d+\.\d+\.\d+)'
@@ -53,7 +53,7 @@ class JSHint(Linter):
 
         command = [self.executable_path, '--verbose']
 
-        if self.syntax.startswith('html'):
+        if self.syntax == 'html':
             command.append('--extract=always')
 
         return command + ['*', '-']
