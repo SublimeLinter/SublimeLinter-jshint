@@ -46,7 +46,7 @@ class JSHint(Linter):
         # capture error, warning and code
         r' \((?:(?P<error>E)|(?P<warning>W))(?P<code>\d+)\))'
     )
-    config_file = ('--config', '.jshintrc', '~')
+    config_file = ('--config', '.jshintrc', '--exclude-path', '.jshintignore', '~')
 
     def cmd(self):
         """Return the command line to execute."""
