@@ -104,7 +104,7 @@ class JSHint(Linter):
 
             # mark the undefined word
             elif code == '098' and match.group('undef'):
-            	col -= len(match.group('undef'))
+                col -= len(match.group('undef'))
 
             # mark the no camel case key, cannot use safer method of
             # subtracting the length of the match, as the original col info
