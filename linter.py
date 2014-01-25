@@ -99,12 +99,12 @@ class JSHint(Linter):
                 self.word_re = re.compile(r'\+\+|--')
 
             # mark the duplicate key
-            elif code == '075':
+            elif code == '075' and match.group('duplicate'):
                 col -= len(match.group('duplicate'))
 
             # mark the undefined word
-            elif code == '098':
-                col -= len(match.group('undef'))
+            elif code == '098' and match.group('undef'):
+            	col -= len(match.group('undef'))
 
             # mark the no camel case key, cannot use safer method of
             # subtracting the length of the match, as the original col info
