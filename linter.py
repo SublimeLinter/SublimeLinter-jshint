@@ -86,10 +86,12 @@ class JSHint(Linter):
 
             # highlight variables used before defined
             elif code == '003':
+                self.word_re = re.compile(r'[\w\$_]+')
                 col -= len(match.group('late_def'))
 
             # highlight double declared variables
             elif code == '004':
+                self.word_re = re.compile(r'[\w\$_]+')
                 col -= len(match.group('double_declare'))
 
             # now jshint place the column in front,
@@ -100,10 +102,12 @@ class JSHint(Linter):
 
             # mark the duplicate key
             elif code == '075' and match.group('duplicate'):
+                self.word_re = re.compile(r'[\w\$_]+')
                 col -= len(match.group('duplicate'))
 
             # mark the undefined word
             elif code == '098' and match.group('undef'):
+                self.word_re = re.compile(r'[\w\$_]+')
                 col -= len(match.group('undef'))
 
             # mark the no camel case key, cannot use safer method of
