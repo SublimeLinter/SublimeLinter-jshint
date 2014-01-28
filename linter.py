@@ -102,8 +102,8 @@ class JSHint(Linter):
 
             # mark the duplicate key
             elif code == '075' and match.group('duplicate'):
-                self.word_re = re.compile(r'[\w\$_]+')
-                col -= len(match.group('duplicate'))
+                near = match.group('duplicate')
+                col = None
 
             # mark the undefined word
             elif code == '098' and match.group('undef'):
