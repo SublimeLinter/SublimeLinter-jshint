@@ -72,6 +72,12 @@ class JSHint(Linter):
 
         if match:
             fail = match.group('fail')
+
+            if fail:
+                # match, line, col, error, warning, message, near
+                return match, 0, 0, True, False, fail, None
+
+            # now safe to proceed, no error occured with jshint
             error = match.group('error')
             warning = match.group('warning')
             message = match.group('message')
@@ -80,12 +86,8 @@ class JSHint(Linter):
             col = int(match.group('col')) - 1
             near = None
 
-            if fail:
-                # match, line, col, error, warning, message, near
-                return match, 0, 0, True, False, fail, None
-
             # highlight variables used before defined
-            elif code == '003':
+            if code == '003':
                 self.word_re = re.compile(r'[\w\$_]+')
                 col -= len(match.group('late_def'))
 
