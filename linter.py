@@ -125,7 +125,7 @@ class JSHint(Linter):
             elif code == '116':
                 actual = match.group('actual')
                 # match the actual result
-                self.word_re = re.compile(actual)
+                self.word_re = re.compile("%r" % actual)
 
                 # if a comparison then also change the column
                 if actual == '!=' or actual == '==':
