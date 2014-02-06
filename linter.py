@@ -50,7 +50,6 @@ class JSHint(Linter):
 
     def cmd(self):
         """Return the command line to execute."""
-
         command = [self.executable_path, '--verbose']
 
         if self.syntax == 'html':
@@ -62,11 +61,10 @@ class JSHint(Linter):
         """
         Return the components of the match.
 
-        We override this to catch linter error messages and place them
-        at the top of the file.
+        We override this to catch linter error messages and return more presise
+        info used for highlighting.
 
         """
-
         # restore word regex to default each iteration
         self.word_re = None
 
