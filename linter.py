@@ -21,7 +21,7 @@ class JSHint(Linter):
     syntax = ('javascript', 'html', 'javascriptnext')
     executable = 'jshint'
     version_args = '--version'
-    version_re = r'\b.+v(?P<version>\d+\.\d+\.\d+)'
+    version_re = r'\bv(?P<version>\d+\.\d+\.\d+)'
     version_requirement = '>= 2.4.0'
     regex = (
         r'^(?:(?P<fail>ERROR: .+)|'
