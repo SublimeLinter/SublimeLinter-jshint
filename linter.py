@@ -80,7 +80,9 @@ class JSHint(Linter):
             warning = match.group('warning')
             message = match.group('message')
             code = match.group('code')
-            line = int(match.group('line')) - 1
+            # force line numbers to be at least 0
+            # if not they appear at end of file
+            line = max(int(match.group('line')) - 1, 0)
             col = int(match.group('col')) - 1
             near = None
 
