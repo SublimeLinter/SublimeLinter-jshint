@@ -1,7 +1,7 @@
 SublimeLinter-jshint
 =========================
 
-[![Build Status](https://khancdn.eu/badges.php?service=https%3A%2F%2Ftravis-ci.org%2FSublimeLinter%2FSublimeLinter-jshint.png%3Fbranch%3Dmaster)](https://travis-ci.org/SublimeLinter/SublimeLinter-jshint)
+[![Build Status](https://travis-ci.org/SublimeLinter/SublimeLinter-jshint.svg?branch=master)](https://travis-ci.org/SublimeLinter/SublimeLinter-jshint)
 
 This linter plugin for [SublimeLinter](http://sublimelinter.readthedocs.org) provides an interface to [jshint](http://www.jshint.com/docs/). It will be used with files that have the “JavaScript” syntax, or within `<script>` tags in HTML files.
 
