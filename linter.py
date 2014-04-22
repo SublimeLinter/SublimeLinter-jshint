@@ -86,50 +86,51 @@ class JSHint(Linter):
             col = int(match.group('col')) - 1
             near = None
 
-            # highlight variables used before defined
-            if code == '003':
-                self.word_re = re.compile(r'[\w\$_]+')
-                col -= len(match.group('late_def'))
+            if warning:
+                # highlight variables used before defined
+                if code == '003':
+                    self.word_re = re.compile(r'[\w\$_]+')
+                    col -= len(match.group('late_def'))
 
-            # highlight double declared variables
-            elif code == '004':
-                self.word_re = re.compile(r'[\w\$_]+')
-                col -= len(match.group('double_declare'))
+                # highlight double declared variables
+                elif code == '004':
+                    self.word_re = re.compile(r'[\w\$_]+')
+                    col -= len(match.group('double_declare'))
 
-            # now jshint place the column in front,
-            # and as such we need to change our word matching regex,
-            # and keep the column info
-            elif code == '016':
-                self.word_re = re.compile(r'\+\+|--')
+                # now jshint place the column in front,
+                # and as such we need to change our word matching regex,
+                # and keep the column info
+                elif code == '016':
+                    self.word_re = re.compile(r'\+\+|--')
 
-            # mark the duplicate key
-            elif code == '075' and match.group('duplicate'):
-                near = match.group('duplicate')
-                col = None
+                # mark the duplicate key
+                elif code == '075' and match.group('duplicate'):
+                    near = match.group('duplicate')
+                    col = None
 
-            # mark the undefined word
-            elif code == '098' and match.group('undef'):
-                self.word_re = re.compile(r'[\w\$_]+')
-                col -= len(match.group('undef'))
+                # mark the undefined word
+                elif code == '098' and match.group('undef'):
+                    self.word_re = re.compile(r'[\w\$_]+')
+                    col -= len(match.group('undef'))
 
-            # mark the no camel case key, cannot use safer method of
-            # subtracting the length of the match, as the original col info
-            # from jshint is always column 0, using near instead
-            elif code == '106':
-                near = match.group('no_camel')
-                col = None
+                # mark the no camel case key, cannot use safer method of
+                # subtracting the length of the match, as the original col info
+                # from jshint is always column 0, using near instead
+                elif code == '106':
+                    near = match.group('no_camel')
+                    col = None
 
-            # if we have a operator == or != manually change the column,
-            # this also handles the warning when curly brackets are required
-            # near won't work here as we might have multiple ==/!= on a line
-            elif code == '116':
-                actual = match.group('actual')
-                # match the actual result
-                self.word_re = re.compile(re.escape(actual))
+                # if we have a operator == or != manually change the column,
+                # this also handles the warning when curly brackets are required
+                # near won't work here as we might have multiple ==/!= on a line
+                elif code == '116':
+                    actual = match.group('actual')
+                    # match the actual result
+                    self.word_re = re.compile(re.escape(actual))
 
-                # if a comparison then also change the column
-                if actual == '!=' or actual == '==':
-                    col -= len(actual)
+                    # if a comparison then also change the column
+                    if actual == '!=' or actual == '==':
+                        col -= len(actual)
 
             return match, line, col, error, warning, message, near
 
