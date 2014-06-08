@@ -89,12 +89,12 @@ class JSHint(Linter):
             if warning:
                 # highlight variables used before defined
                 if code == '003':
-                    self.word_re = re.compile(r'[\w\$_]+')
+                    near = match.group('late_def')
                     col -= len(match.group('late_def'))
 
                 # highlight double declared variables
                 elif code == '004':
-                    self.word_re = re.compile(r'[\w\$_]+')
+                    near = match.group('double_declare')
                     col -= len(match.group('double_declare'))
 
                 # now jshint place the column in front,
@@ -110,8 +110,8 @@ class JSHint(Linter):
 
                 # mark the undefined word
                 elif code == '098' and match.group('undef'):
-                    self.word_re = re.compile(r'[\w\$_]+')
-                    col -= len(match.group('undef'))
+                    near = match.group('undef')
+                    col = None
 
                 # mark the no camel case key, cannot use safer method of
                 # subtracting the length of the match, as the original col info
@@ -126,7 +126,7 @@ class JSHint(Linter):
                 elif code == '116':
                     actual = match.group('actual')
                     # match the actual result
-                    self.word_re = re.compile(re.escape(actual))
+                    near = match.group('actual')
 
                     # if a comparison then also change the column
                     if actual == '!=' or actual == '==':
