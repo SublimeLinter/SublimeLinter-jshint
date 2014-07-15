@@ -41,6 +41,8 @@ For general information on how SublimeLinter works with settings, please see [Se
 
 You can configure `jshint` options in the way you would from the command line, with `.jshintrc` files. For more information, see the [jshint docs](http://www.jshint.com/docs/). The linter plugin does this by searching for a `.jshintrc` file itself, just as `jshint` does from the command line. You may provide a custom config file by setting the linter’s `"args"` setting to `["--config", "/path/to/file"]`. On Windows, be sure to double the backslashes in the path, for example `["--config", "C:\\Users\\Aparajita\\jshint.conf"]`.
 
+The path to the `.jshintrc` file is cached, meaning if you create a new `.jshintrc` that should have precedence over the previous one (meaning it is closer to the .js file) you need to clear the cache for the linter to use the filenew `.jshintrc` You can clear the cache by going to: Tools > SublimeLinter > Clear Caches.
+
 ## Contributing
 If you would like to contribute enhancements or fixes, please do the following:
 
