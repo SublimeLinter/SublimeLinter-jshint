@@ -22,7 +22,7 @@ class JSHint(Linter):
     executable = 'jshint'
     version_args = '--version'
     version_re = r'\bv(?P<version>\d+\.\d+\.\d+)'
-    version_requirement = '>= 2.4.0'
+    version_requirement = '>= 2.5.0'
     regex = (
         r'^(?:(?P<fail>ERROR: .+)|'
         r'.+?: line (?P<line>\d+), col (?P<col>\d+), '
