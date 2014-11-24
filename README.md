@@ -43,6 +43,10 @@ You can configure `jshint` options in the way you would from the command line, w
 
 The path to the `.jshintrc` file is cached, meaning if you create a new `.jshintrc` that should have precedence over the previous one (meaning it is closer to the .js file) you need to clear the cache for the linter to use the new `.jshintrc` You can clear the cache by going to: Tools > SublimeLinter > Clear Caches.
 
+### Using with tabs
+
+If you use tabs as your indentation, make sure you set the option `indent: 1` in your .jshintrc file. If not the wrong sections of the code will be highlighted.
+
 ## Contributing
 If you would like to contribute enhancements or fixes, please do the following:
 
