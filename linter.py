@@ -12,13 +12,15 @@
 
 import re
 from SublimeLinter.lint import Linter
+from SublimeLinter.lint import persist
 
 
 class JSHint(Linter):
 
     """Provides an interface to the jshint executable."""
+    Linter.syntax_settings = persist.settings.get('jshint_syntax', [ "html", "laravel-blade", "javascript", "javascriptnext"])
 
-    syntax = ('javascript', 'html', 'javascriptnext')
+    syntax = (Linter.syntax_settings)
     executable = 'jshint'
     version_args = '--version'
     version_re = r'\bv(?P<version>\d+\.\d+\.\d+)'
@@ -52,7 +54,7 @@ class JSHint(Linter):
         """Return the command line to execute."""
         command = [self.executable_path, '--verbose', '--filename', '@']
 
-        if self.syntax == 'html':
+        if self.syntax in Linter.syntax_settings:
             command.append('--extract=always')
 
         return command + ['*', '-']
