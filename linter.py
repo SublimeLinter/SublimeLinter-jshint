@@ -16,7 +16,7 @@ from SublimeLinter.lint import persist
 
 
 class JSHint(Linter):
-
+    
     """Provides an interface to the jshint executable."""
     default_list = ["html", "laravel-blade", "javascript", "javascriptnext"]
     Linter.syntax_settings = persist.settings.get('jshint_syntax', default_list)
