@@ -18,7 +18,7 @@ Before installing this plugin, you must ensure that `jshint` is installed on you
    npm install -g jshint
    ```
 
-1. If you are using `nvm` and `zsh`, ensure that the line to load `nvm` is in `.zshenv` and not `.zshrc`.
+1. If you are using `nvm` and `zsh`, ensure that the line to load `nvm` is in `.zshenv` or `.zprofile` and not `.zshrc`.(reason: [here](http://www.sublimelinter.com/en/latest/installation.html) and [here](https://github.com/SublimeLinter/SublimeLinter3/issues/128))
 
 **Note:** This plugin requires `jshint` 2.5.0 or later. Please note that the _indent_ option no longer reports warnings for bad indentation. https://github.com/jshint/jshint/releases/tag/2.5.0
 
