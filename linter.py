@@ -19,6 +19,7 @@ class JSHint(Linter):
     """Provides an interface to the jshint executable."""
 
     syntax = ('javascript', 'html', 'javascriptnext')
+    tab_width = 4
     executable = 'jshint'
     version_args = '--version'
     version_re = r'\bv(?P<version>\d+\.\d+\.\d+)'
