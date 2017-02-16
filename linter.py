@@ -12,14 +12,16 @@
 """This module exports the JSHint plugin linter class."""
 
 import re
-from SublimeLinter.lint import Linter
+from SublimeLinter.lint import NodeLinter
 
 
-class JSHint(Linter):
+class JSHint(NodeLinter):
+
     """Provides an interface to the jshint executable."""
 
     syntax = ('javascript', 'html', 'javascriptnext')
-    executable = 'jshint'
+    npm_name = 'jshint'
+    cmd = ('jshint', '--verbose', '@')
     version_args = '--version'
     version_re = r'\bv(?P<version>\d+\.\d+\.\d+)'
     version_requirement = '>= 2.5.0'
@@ -46,16 +48,9 @@ class JSHint(Linter):
         # capture error, warning and code
         r' \((?:(?P<error>E)|(?P<warning>W))(?P<code>\d+)\))'
     )
-    config_file = ('--config', '.jshintrc', '~')
-
-    def cmd(self):
-        """Return the command line to execute."""
-        command = [self.executable_path, '--verbose', '--filename', '@']
-
-        if self.syntax == 'html':
-            command.append('--extract=always')
-
-        return command + ['*', '-']
+    selectors = {
+        'html': 'source.js.embedded.html'
+    }
 
     def split_match(self, match):
         """

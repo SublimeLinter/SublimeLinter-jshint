@@ -17,6 +17,11 @@ Before installing this plugin, you must ensure that `jshint` is installed on you
    ```
    npm install -g jshint
    ```
+Or install `jshint` locally in your project folder (**you must have package.json file there**):
+    ```
+    npm init -f
+    npm install jshint
+    ```
 
 1. If you are using `nvm` and `zsh`, ensure that the line to load `nvm` is in `.zshenv` or `.zprofile` and not `.zshrc`.(reason: [here](http://www.sublimelinter.com/en/latest/installation.html) and [here](https://github.com/SublimeLinter/SublimeLinter3/issues/128))
 
