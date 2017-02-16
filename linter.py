@@ -18,7 +18,7 @@ from SublimeLinter.lint import Linter
 class JSHint(Linter):
     """Provides an interface to the jshint executable."""
 
-    syntax = ('javascript', 'html', 'javascriptnext')
+    syntax = ('javascript', 'html', 'javascriptnext', 'javascript (dom)')
     executable = 'jshint'
     version_args = '--version'
     version_re = r'\bv(?P<version>\d+\.\d+\.\d+)'
