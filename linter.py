@@ -44,7 +44,7 @@ class JSHint(Linter):
         # match all messages
         r'|.+)'
         # capture error, warning and code
-        r' \((?:(?P<error>E)|(?P<warning>W))(?P<code>\d+)\))'
+        r' \((?:(?P<error>E\d+)|(?P<warning>W\d+))\))'
     )
     config_file = ('--config', '.jshintrc', '~')
 
@@ -79,7 +79,6 @@ class JSHint(Linter):
             error = match.group('error')
             warning = match.group('warning')
             message = match.group('message')
-            code = match.group('code')
             # force line numbers to be at least 0
             # if not they appear at end of file
             line = max(int(match.group('line')) - 1, 0)
@@ -88,42 +87,42 @@ class JSHint(Linter):
 
             if warning:
                 # highlight variables used before defined
-                if code == '003':
+                if warning == 'W003':
                     near = match.group('late_def')
                     col -= len(match.group('late_def'))
 
                 # highlight double declared variables
-                elif code == '004':
+                elif warning == 'W004':
                     near = match.group('double_declare')
                     col -= len(match.group('double_declare'))
 
                 # now jshint place the column in front,
                 # and as such we need to change our word matching regex,
                 # and keep the column info
-                elif code == '016':
+                elif warning == 'W016':
                     self.word_re = re.compile(r'\+\+|--')
 
                 # mark the duplicate key
-                elif code == '075' and match.group('duplicate'):
+                elif warning == 'W075' and match.group('duplicate'):
                     near = match.group('duplicate')
                     col = None
 
                 # mark the undefined word
-                elif code == '098' and match.group('undef'):
+                elif warning == 'W098' and match.group('undef'):
                     near = match.group('undef')
                     col = None
 
                 # mark the no camel case key, cannot use safer method of
                 # subtracting the length of the match, as the original col info
                 # from jshint is always column 0, using near instead
-                elif code == '106':
+                elif warning == 'W106':
                     near = match.group('no_camel')
                     col = None
 
                 # if we have a operator == or != manually change the column,
                 # this also handles the warning when curly brackets are required
                 # near won't work here as we might have multiple ==/!= on a line
-                elif code == '116':
+                elif warning == 'W116':
                     actual = match.group('actual')
                     # match the actual result
                     near = match.group('actual')
