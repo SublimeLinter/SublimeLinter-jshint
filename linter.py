@@ -66,7 +66,7 @@ class JSHint(Linter):
 
         """
         # restore word regex to default each iteration
-        self.word_re = None
+        self.word_re = Linter.word_re
 
         if match:
             fail = match.group('fail')
