@@ -47,15 +47,13 @@ class JSHint(Linter):
         r' \((?:(?P<error>E\d+)|(?P<warning>W\d+))\))'
     )
     config_file = ('--config', '.jshintrc', '~')
+    selectors = {
+        'html': 'source.js.embedded.html'
+    }
 
     def cmd(self):
         """Return the command line to execute."""
-        command = [self.executable_path, '--verbose', '--filename', '@']
-
-        if self.syntax == 'html':
-            command.append('--extract=always')
-
-        return command + ['*', '-']
+        return [self.executable_path, '--verbose', '--filename', '@', '*', '-']
 
     def split_match(self, match):
         """
