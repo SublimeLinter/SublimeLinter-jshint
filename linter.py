@@ -47,7 +47,6 @@ class JSHint(NodeLinter):
         # capture error, warning and code
         r' \((?:(?P<error>E\d+)|(?P<warning>W\d+))\))'
     )
-    config_file = ('--config', '.jshintrc', '~')
     selectors = {
         'html': 'source.js.embedded.html'
     }
