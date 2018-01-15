@@ -12,14 +12,15 @@
 """This module exports the JSHint plugin linter class."""
 
 import re
-from SublimeLinter.lint import Linter
+from SublimeLinter.lint import NodeLinter
 
 
-class JSHint(Linter):
+class JSHint(NodeLinter):
     """Provides an interface to the jshint executable."""
 
     syntax = ('javascript', 'html', 'javascriptnext', 'javascript (babel)')
-    executable = 'jshint'
+    npm_name = 'jshint'
+    cmd = ['jshint', '--verbose', '--filename', '@', '*', '-']
     version_args = '--version'
     version_re = r'\bv(?P<version>\d+\.\d+\.\d+)'
     version_requirement = '>= 2.5.0'
@@ -51,10 +52,6 @@ class JSHint(Linter):
         'html': 'source.js.embedded.html'
     }
 
-    def cmd(self):
-        """Return the command line to execute."""
-        return [self.executable_path, '--verbose', '--filename', '@', '*', '-']
-
     def split_match(self, match):
         """
         Return the components of the match.
@@ -64,7 +61,7 @@ class JSHint(Linter):
 
         """
         # restore word regex to default each iteration
-        self.word_re = Linter.word_re
+        self.word_re = NodeLinter.word_re
 
         if match:
             fail = match.group('fail')
