@@ -14,9 +14,9 @@ Before installing this plugin, you must ensure that `jshint` (2.5.0 or later) is
 
 1. Install [Node.js](http://nodejs.org) (and [npm](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager) on Linux).
 
-1. Install `jshint` by typing the following in a terminal:
+1. Install `jshint` (or globally with `-g`):
    ```
-   npm install -g jshint
+   npm install jshint
    ```
 
 1. If you are using `nvm` and `zsh`, ensure that the line to load `nvm` is in `.zshenv` or `.zprofile` and not `.zshrc`.(reason: [here](http://www.sublimelinter.com/en/latest/installation.html) and [here](https://github.com/SublimeLinter/SublimeLinter3/issues/128))
