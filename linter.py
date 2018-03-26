@@ -1,29 +1,10 @@
-#
-# linter.py
-# Linter for SublimeLinter3, a code checking framework for Sublime Text 3
-#
-# Written by Aparajita Fishman
-# Copyright (c) 2015-2016 The SublimeLinter Community
-# Copyright (c) 2013-2014 Aparajita Fishman
-#
-# License: MIT
-#
-
-"""This module exports the JSHint plugin linter class."""
-
 import re
 from SublimeLinter.lint import NodeLinter
 
 
 class JSHint(NodeLinter):
-    """Provides an interface to the jshint executable."""
-
-    syntax = ('javascript', 'html', 'javascriptnext', 'javascript (babel)')
     npm_name = 'jshint'
-    cmd = ['jshint', '--verbose', '--filename', '@', '*', '-']
-    version_args = '--version'
-    version_re = r'\bv(?P<version>\d+\.\d+\.\d+)'
-    version_requirement = '>= 2.5.0'
+    cmd = ['jshint', '--verbose', '--filename', '${file}', '${args}', '-']
     regex = (
         r'^(?:(?P<fail>ERROR: .+)|'
         r'.+?: line (?P<line>\d+), col (?P<col>\d+), '
@@ -47,8 +28,8 @@ class JSHint(NodeLinter):
         # capture error, warning and code
         r' \((?:(?P<error>E\d+)|(?P<warning>W\d+))\))'
     )
-    selectors = {
-        'html': 'source.js.embedded.html'
+    defaults = {
+        'selector': 'source.js - meta.attribute-with-value'
     }
 
     def split_match(self, match):
