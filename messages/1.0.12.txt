@@ -1,4 +1,0 @@
-SublimeLinter-jshint 1.0.12
-----------------------------
-- The linter will also look for .jshintrc in the user's
-  home directory, as jshint does.
