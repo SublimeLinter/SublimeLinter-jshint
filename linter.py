@@ -4,7 +4,7 @@ from SublimeLinter.lint import NodeLinter
 
 class JSHint(NodeLinter):
     npm_name = 'jshint'
-    cmd = ['jshint', '--verbose', '--filename', '${file}', '${args}', '-']
+    cmd = ['jshint', '--verbose', '${args}', '-']
     regex = (
         r'^(?:(?P<fail>ERROR: .+)|'
         r'.+?: line (?P<line>\d+), col (?P<col>\d+), '
@@ -29,7 +29,8 @@ class JSHint(NodeLinter):
         r' \((?:(?P<error>E\d+)|(?P<warning>W\d+))\))'
     )
     defaults = {
-        'selector': 'source.js - meta.attribute-with-value'
+        'selector': 'source.js - meta.attribute-with-value',
+        '--filename:': '${file:${folder}/unsaved.js}'
     }
 
     def split_match(self, match):
