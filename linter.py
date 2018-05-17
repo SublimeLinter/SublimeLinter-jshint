@@ -1,4 +1,3 @@
-import re
 from SublimeLinter.lint import NodeLinter
 
 
@@ -9,20 +8,14 @@ class JSHint(NodeLinter):
         r'^(?:(?P<fail>ERROR: .+)|'
         r'.+?: line (?P<line>\d+), col (?P<col>\d+), '
         r'(?P<message>'
-        # undefined warnings
-        r'\'(?P<undef>.+)\'.+(?=.+W098)'
+        # unexpected use of ++ etc
+        r'|.+\'(?P<unexpected>.+)\'\.(?=.+W016)'
         # duplicate key
         r'|.+\'(?P<duplicate>.+)\'.+(?=.+W075)'
         # camel case
         r'|.+\'(?P<no_camel>.+)\'.+(?=.+W106)'
-        # using later defined
-        r'|(.+)?\'(?P<late_def>.+)\'.+(?=.+W003)'
-        # double declaration
-        r'|(.+)?\'(?P<double_declare>.+)\'.+(?=.+W004)'
         # unexpected use, typically use of non strict operators
         r'|.+\'(?P<actual>.+)\'\.(?=.+W116)'
-        # unexpected use of ++ etc
-        r'|.+\'(?P<unexpected>.+)\'\.(?=.+W016)'
         # match all messages
         r'|.+)'
         # capture error, warning and code
@@ -62,38 +55,21 @@ class JSHint(NodeLinter):
             near = None
 
             if warning:
-                # highlight variables used before defined
-                if warning == 'W003':
-                    near = match.group('late_def')
-                    col -= len(match.group('late_def'))
-
-                # highlight double declared variables
-                elif warning == 'W004':
-                    near = match.group('double_declare')
-                    col -= len(match.group('double_declare'))
-
-                # now jshint place the column in front,
-                # and as such we need to change our word matching regex,
-                # and keep the column info
-                elif warning == 'W016':
-                    self.word_re = re.compile(r'\+\+|--')
+                # unexpected use of ++ etc.
+                if warning == 'W016':
+                    near = match.group('unexpected')
 
                 # mark the duplicate key
                 elif warning == 'W075' and match.group('duplicate'):
                     near = match.group('duplicate')
-                    col = None
-
-                # mark the undefined word
-                elif warning == 'W098' and match.group('undef'):
-                    near = match.group('undef')
-                    col = None
+                    col -= len(match.group('duplicate'))
 
                 # mark the no camel case key, cannot use safer method of
                 # subtracting the length of the match, as the original col info
                 # from jshint is always column 0, using near instead
                 elif warning == 'W106':
                     near = match.group('no_camel')
-                    col = None
+                    col -= len(match.group('no_camel'))
 
                 # if we have a operator == or != manually change the column,
                 # this also handles the warning when curly brackets are required
