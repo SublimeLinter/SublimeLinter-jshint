@@ -22,6 +22,9 @@ class JSHint(NodeLinter):
     )
     defaults = {
         'selector': 'source.js - meta.attribute-with-value',
+        # `filename` will determine the config finding algo of jshint. We
+        # fake a name for unsaved files bc we sadly cannot just point to a
+        # folder.
         '--filename:': '${file:${folder}/unsaved.js}'
     }
 
