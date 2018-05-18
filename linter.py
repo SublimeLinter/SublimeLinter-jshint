@@ -2,7 +2,6 @@ from SublimeLinter.lint import NodeLinter
 
 
 class JSHint(NodeLinter):
-    npm_name = 'jshint'
     cmd = ['jshint', '--verbose', '${args}', '-']
     regex = (
         r'^.+?: line (?P<line>\d+), col (?P<col>\d+), '
