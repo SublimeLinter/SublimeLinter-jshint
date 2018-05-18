@@ -34,9 +34,6 @@ class JSHint(NodeLinter):
         info used for highlighting.
 
         """
-        # restore word regex to default each iteration
-        self.word_re = NodeLinter.word_re
-
         if match:
             fail = match.group('fail')
 
