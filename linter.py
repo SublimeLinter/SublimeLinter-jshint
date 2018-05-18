@@ -5,8 +5,7 @@ class JSHint(NodeLinter):
     npm_name = 'jshint'
     cmd = ['jshint', '--verbose', '${args}', '-']
     regex = (
-        r'^(?:(?P<fail>ERROR: .+)|'
-        r'.+?: line (?P<line>\d+), col (?P<col>\d+), '
+        r'^.+?: line (?P<line>\d+), col (?P<col>\d+), '
         r'(?P<message>'
         # unexpected use of ++ etc
         r'|.+\'(?P<unexpected>.+)\'\.(?=.+W016)'
@@ -19,7 +18,7 @@ class JSHint(NodeLinter):
         # match all messages
         r'|.+)'
         # capture error, warning and code
-        r' \((?:(?P<error>E\d+)|(?P<warning>W\d+))\))'
+        r' \((?:(?P<error>E\d+)|(?P<warning>W\d+))\)'
     )
     defaults = {
         'selector': 'source.js - meta.attribute-with-value',
@@ -35,12 +34,6 @@ class JSHint(NodeLinter):
 
         """
         if match:
-            fail = match.group('fail')
-
-            if fail:
-                # match, line, col, error, warning, message, near
-                return match, 0, 0, True, False, fail, None
-
             # now safe to proceed, no error occured with jshint
             error = match.group('error')
             warning = match.group('warning')
