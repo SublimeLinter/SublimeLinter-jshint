@@ -35,49 +35,45 @@ class JSHint(NodeLinter):
         info used for highlighting.
 
         """
-        if match:
-            # now safe to proceed, no error occured with jshint
-            error = match.group('error')
-            warning = match.group('warning')
-            message = match.group('message')
-            # force line numbers to be at least 0
-            # if not they appear at end of file
-            line = max(int(match.group('line')) - 1, 0)
-            col = int(match.group('col')) - 1
-            near = None
+        error = match.group('error')
+        warning = match.group('warning')
+        message = match.group('message')
+        # force line numbers to be at least 0
+        # if not they appear at end of file
+        line = max(int(match.group('line')) - 1, 0)
+        col = int(match.group('col')) - 1
+        near = None
 
-            # Note: jshint usually produces a `col` value, but sometimes the
-            # col points to the last char of the offending code. When a col is
-            # given, we can simply adjust the size of the error using near bc
-            # SublimeLinter will just take the length of near in that case.
-            # So when you see `col -= ...` we just shift the beginning of the
-            # error to the left.
+        # Note: jshint usually produces a `col` value, but sometimes the
+        # col points to the last char of the offending code. When a col is
+        # given, we can simply adjust the size of the error using near bc
+        # SublimeLinter will just take the length of near in that case.
+        # So when you see `col -= ...` we just shift the beginning of the
+        # error to the left.
 
-            if warning:
-                # unexpected use of ++ etc.
-                if warning == 'W016':
-                    near = match.group('unexpected')
+        if warning:
+            # unexpected use of ++ etc.
+            if warning == 'W016':
+                near = match.group('unexpected')
 
-                # mark the duplicate key
-                elif warning == 'W075' and match.group('duplicate'):
-                    near = match.group('duplicate')
-                    col -= len(match.group('duplicate'))
+            # mark the duplicate key
+            elif warning == 'W075' and match.group('duplicate'):
+                near = match.group('duplicate')
+                col -= len(match.group('duplicate'))
 
-                # mark the no camel case key
-                elif warning == 'W106':
-                    near = match.group('no_camel')
-                    col -= len(match.group('no_camel'))
+            # mark the no camel case key
+            elif warning == 'W106':
+                near = match.group('no_camel')
+                col -= len(match.group('no_camel'))
 
-                # if we have a operator == or != manually change the column,
-                # this also handles the warning when curly brackets are required
-                elif warning == 'W116':
-                    # match the actual result
-                    near = match.group('actual')
+            # if we have a operator == or != manually change the column,
+            # this also handles the warning when curly brackets are required
+            elif warning == 'W116':
+                # match the actual result
+                near = match.group('actual')
 
-                    # if a comparison then also change the column
-                    if near == '!=' or near == '==':
-                        col -= len(near)
+                # if a comparison then also change the column
+                if near == '!=' or near == '==':
+                    col -= len(near)
 
-            return match, line, col, error, warning, message, near
-
-        return None
+        return match, line, col, error, warning, message, near
