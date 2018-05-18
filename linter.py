@@ -78,4 +78,4 @@ class JSHint(NodeLinter):
 
             return match, line, col, error, warning, message, near
 
-        return match, None, None, None, None, '', None
+        return None
