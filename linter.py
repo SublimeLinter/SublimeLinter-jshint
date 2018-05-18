@@ -44,6 +44,13 @@ class JSHint(NodeLinter):
             col = int(match.group('col')) - 1
             near = None
 
+            # Note: jshint usually produces a `col` value, but sometimes the
+            # col points to the last char of the offending code. When a col is
+            # given, we can simply adjust the size of the error using near bc
+            # SublimeLinter will just take the length of near in that case.
+            # So when you see `col -= ...` we just shift the beginning of the
+            # error to the left.
+
             if warning:
                 # unexpected use of ++ etc.
                 if warning == 'W016':
@@ -54,9 +61,7 @@ class JSHint(NodeLinter):
                     near = match.group('duplicate')
                     col -= len(match.group('duplicate'))
 
-                # mark the no camel case key, cannot use safer method of
-                # subtracting the length of the match, as the original col info
-                # from jshint is always column 0, using near instead
+                # mark the no camel case key
                 elif warning == 'W106':
                     near = match.group('no_camel')
                     col -= len(match.group('no_camel'))
