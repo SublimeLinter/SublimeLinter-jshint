@@ -63,15 +63,13 @@ class JSHint(NodeLinter):
 
                 # if we have a operator == or != manually change the column,
                 # this also handles the warning when curly brackets are required
-                # near won't work here as we might have multiple ==/!= on a line
                 elif warning == 'W116':
-                    actual = match.group('actual')
                     # match the actual result
                     near = match.group('actual')
 
                     # if a comparison then also change the column
-                    if actual == '!=' or actual == '==':
-                        col -= len(actual)
+                    if near == '!=' or near == '==':
+                        col -= len(near)
 
             return match, line, col, error, warning, message, near
 
