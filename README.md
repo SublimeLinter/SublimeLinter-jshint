@@ -4,7 +4,7 @@ SublimeLinter-jshint
 [![Build Status](https://travis-ci.org/SublimeLinter/SublimeLinter-jshint.svg?branch=master)](https://travis-ci.org/SublimeLinter/SublimeLinter-jshint)
 
 This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter) provides an interface to [jshint](http://www.jshint.com/docs/).
-It will be used with files that have the "JavaScript" syntax, or within `<script>` tags in HTML files.
+It will be used with files that have the "JavaScript" syntax. To also lint `<script>` blocks in HTML and other files, opt in by setting [`enable_cells`](http://sublimelinter.com/en/latest/linter_settings.html#enable-cells) to `true` for this linter.
 
 
 ## Installation
